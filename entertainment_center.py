@@ -9,7 +9,7 @@
  * Time: 11:14 PM
  * To change this template use File | Settings | File Templates.
 """
-import fresh_tomatoes
+import fresh_tomatoes_custom
 import media
 
 toy_story = media.Movie('Toy Story', 'A story of a boy and his toys that come to life',
@@ -60,7 +60,7 @@ matrix = media.Movie('The Matrix', 'Neo (Keanu Reeves) believes that Morpheus (L
 movies = [toy_story, avatar, v_for_vendetta, school_of_rock, ratatouille, midnight_in_paris, hunger_games,
           lotr_1, lotr_2, lotr_3, matrix]
 
-fresh_tomatoes.open_movies_page(movies)
+fresh_tomatoes_custom.open_movies_page(movies)
 
 import imdb
 ia = imdb.IMDb()
