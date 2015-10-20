@@ -11,7 +11,7 @@ This project
 * Git
 
 ## Quick start 
-* Clone the repo: `git https://github.com/iraquitan/P1_Movie_Trailer.git`.
+* Clone the repo: `git clone https://github.com/iraquitan/P1_Movie_Trailer.git`.
 * Run the following code on terminal: `python my_entertainment_center.py`.
 * If you want to add your onw movies, edit `my_entertainment.py` file
 
