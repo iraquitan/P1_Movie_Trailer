@@ -1,5 +1,5 @@
 # PROJECT 1 - Movie Trailer Website
-This project 
+This project stores movies info like title, year, storyline, director, poster url and youtube trailer url and displays then in a webpage where we can see their info and play their trailer.
 
 ## Table of contents
 * [Requirements](#requirements)
