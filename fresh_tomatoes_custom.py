@@ -17,16 +17,33 @@ import re
 main_page_head = '''
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Website to display some movie trailers">
+    <meta name="author" content="Iraquitan Cordeiro Filho">
+
     <title>My Movies!</title>
 
-    <!-- Bootstrap 3 -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    <!-- Bootstrap 3.3.5 -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+    <!-- JQuery minified -->
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
     <style type="text/css" media="screen">
         body {
             padding-top: 80px;
+            background-color: rgba(255, 254, 89, 0.67);
+        }
+        .my-hidden {
+            display: none;
         }
         #trailer .modal-dialog {
             margin-top: 200px;
@@ -48,7 +65,7 @@ main_page_head = '''
             padding-top: 20px;
         }
         .movie-tile:hover {
-            background-color: #EEE;
+            background-color: #eeee85;
             cursor: pointer;
         }
         .scale-media {
@@ -89,6 +106,13 @@ main_page_head = '''
             $(this).next("div").show("fast", showNext);
           });
         });
+        // Toggle director and storyline movie info
+        $(document).ready(function(){
+            $(".movie-tile").hover(function(){
+                $(".my-hidden", this).toggle();
+            });
+        });
+
     </script>
 </head>
 '''
@@ -97,6 +121,7 @@ main_page_head = '''
 main_page_content = '''
 <!DOCTYPE html>
 <html lang="en">
+  {head}
   <body>
     <!-- Trailer Video Modal -->
     <div class="modal" id="trailer">
@@ -112,15 +137,26 @@ main_page_content = '''
     </div>
 
     <!-- Main Page Content -->
-    <div class="container">
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Iraquitan C Filho Movie Trailers</a>
-          </div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Movie trailers</a>
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
-    </div>
+    </nav>
     <div class="container">
       {movie_tiles}
     </div>
@@ -132,7 +168,9 @@ main_page_content = '''
 movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+    <h2>{movie_title} ({movie_year})</h2>
+    <h3 class="my-hidden">Director: {movie_director}</h3>
+    <h4 class="my-hidden">Storyline: {movie_storyline}</h4>
 </div>
 '''
 
@@ -149,6 +187,9 @@ def create_movie_tiles_content(movies):
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
             movie_title=movie.title,
+            movie_year=movie.year,
+            movie_director=movie.director,
+            movie_storyline=movie.storyline,
             poster_image_url=movie.poster_image_url,
             trailer_youtube_id=trailer_youtube_id
         )
@@ -160,10 +201,11 @@ def open_movies_page(movies):
     output_file = open('my_entertainment_center.html', 'w')
 
     # Replace the placeholder for the movie tiles with the actual dynamically generated content
-    rendered_content = main_page_content.format(movie_tiles=create_movie_tiles_content(movies))
+    rendered_content = main_page_content.format(head=main_page_head, movie_tiles=create_movie_tiles_content(movies))
 
     # Output the file
-    output_file.write(main_page_head + rendered_content)
+    # output_file.write(main_page_head + rendered_content)
+    output_file.write(rendered_content)
     output_file.close()
 
     # open the output file in the browser
