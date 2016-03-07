@@ -5,6 +5,7 @@ This project stores movies info like title, year, storyline, director, poster ur
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
 * [Creator](#creator)
+* [License](#license)
 
 ## Requirements
 * Python 2.7
@@ -20,3 +21,6 @@ This project stores movies info like title, year, storyline, director, poster ur
 
 * <https://twitter.com/iraquitan_filho>
 * <https://github.com/iraquitan>
+
+## License
+The contents of this repository are covered under the [MIT License](LICENSE).
